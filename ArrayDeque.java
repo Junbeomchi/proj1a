@@ -1,14 +1,16 @@
+
+/** Implementing a deque by using a circular array list data structure. */
 public class ArrayDeque<Item> {
 	private Item[] items;
 	private int front, rear; // Front and rear always have to contain some value after the first insertion
 	private int size = 0;
-	/** Creates an empty Deque */
+	/** Creates an empty deque */
 	public ArrayDeque() {
 		items = (Item[]) new Object[8];
 		front = items.length/2;
 		rear = items.length/2;
 	}
-    /** Decrement and increment helper functions for nextFirst and nextLast, respectively. */
+    /** Decrement and increment helper functions */
     private static int decrement(int n, int length) {
         if (n == 0) {
             return n = length - 1;
@@ -60,15 +62,15 @@ public class ArrayDeque<Item> {
             }
     	}
     }
-    /** Returns true if deque is empty, false otherwise. */
+    /** Returns true if deque is empty (size = 0), false otherwise. */
     public boolean isEmpty() {
         return this.size == 0;
     }
-    /** Returns the number of items in the Deque. */
+    /** Returns the number of items in the deque. */
     public int size() {
         return this.size;
     }
-    /** Decides whether to condense an array of length 16 or more if the usage ratio of the array is less than 25%. */
+    /** Condenses an array */
     private void condense() {
         Item[] condensed = (Item[]) new Object[this.items.length/2];
         int j = 0;
@@ -81,8 +83,7 @@ public class ArrayDeque<Item> {
         this.rear = j;
         this.items = condensed;
     }
-    // Fix removeFirst and removeLast.
-    /** Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    /** Removes and returns the item at the front of the deque. */
     public Item removeFirst() {
     	if (this.isEmpty()) {
     		return null;
@@ -93,13 +94,13 @@ public class ArrayDeque<Item> {
     		this.size -= 1;
             // Check the usage ratio (r) and shrink the array by half if r < 0.25
             double r = this.size / (double) this.items.length;
-    		if (r < 0.25) {
+    		if (r < 0.25 && this.items.length >= 16) {
     		    this.condense();
             }
     		return toRemove;
     	}
     }
-    /** Removes and returns the item at the back of the Deque. If no such item exists, returns null. */
+    /** Removes and returns the item at the rear of the deque */
     public Item removeLast() {
     	if (this.isEmpty()) {
     		return null;
@@ -110,13 +111,13 @@ public class ArrayDeque<Item> {
     		this.size -= 1;
     		// Check the usage ratio (r) and shrink the array by half if r < 0.25
             double r = this.size / (double) this.items.length;
-    		if (r < 0.25) {
+    		if (r < 0.25 && this.items.length >= 16) {
     		    this.condense();
             }
     		return toRemove;
     	}
     }
-    /** Prints the items in the Deque from the first to last, separated by a space. */
+    /** Prints the items in the deque from the front to the rear, separated by spaces. */
     public void printDeque() {
  		if (this.isEmpty()) {
  			System.out.println("You have no items in your deque.");
@@ -136,10 +137,11 @@ public class ArrayDeque<Item> {
     	int actual_i = (index + this.front) % this.items.length;
     	return this.items[actual_i];
     }
+    /** Returns the length of the array in use (used for testing) */
     private int len() {
         return this.items.length;
     }
-    /** Testing out the ArrayDeque class */
+    /** Testing out the ArrayDeque class! */
     public static void main(String[] args) {
         ArrayDeque<Integer> l = new ArrayDeque<>();
         l.addFirst(3);
