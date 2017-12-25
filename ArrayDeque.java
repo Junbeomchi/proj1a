@@ -4,13 +4,13 @@ public class ArrayDeque<Item> {
 	private Item[] items;
 	private int front, rear; // Front and rear always have to contain some value after the first insertion
 	private int size = 0;
-	/** Creates an empty deque */
+	/** Creates an empty deque. */
 	public ArrayDeque() {
 		items = (Item[]) new Object[8];
 		front = items.length/2;
 		rear = items.length/2;
 	}
-    /** Decrement and increment helper functions */
+    /** Decrement and increment helper functions. */
     private static int decrement(int n, int length) {
         if (n == 0) {
             return n = length - 1;
@@ -21,7 +21,7 @@ public class ArrayDeque<Item> {
     private static int increment(int n, int length) {
         return n = (n + 1) % length;
     }
-    /** Resizes the entire array */
+    /** Resizes the entire array. */
     private void resize(int capacity) {
         Item[] resized = (Item[]) new Object[capacity];
         int j = 0;
@@ -92,7 +92,7 @@ public class ArrayDeque<Item> {
     		this.items[this.front] = null;
     		this.front = ArrayDeque.increment(this.front, this.items.length);
     		this.size -= 1;
-            // Check the usage ratio (r) and shrink the array by half if r < 0.25
+            // Check the usage ratio (r) and shrink the array by half if r < 0.25 and array length >= 16.
             double r = this.size / (double) this.items.length;
     		if (r < 0.25 && this.items.length >= 16) {
     		    this.condense();
@@ -100,7 +100,7 @@ public class ArrayDeque<Item> {
     		return toRemove;
     	}
     }
-    /** Removes and returns the item at the rear of the deque */
+    /** Removes and returns the item at the rear of the deque. */
     public Item removeLast() {
     	if (this.isEmpty()) {
     		return null;
@@ -109,7 +109,7 @@ public class ArrayDeque<Item> {
     		this.items[this.rear] = null;
     		this.rear = ArrayDeque.decrement(this.rear, this.items.length);
     		this.size -= 1;
-    		// Check the usage ratio (r) and shrink the array by half if r < 0.25
+    		// Check the usage ratio (r) and shrink the array by half if r < 0.25 and array length >= 16.
             double r = this.size / (double) this.items.length;
     		if (r < 0.25 && this.items.length >= 16) {
     		    this.condense();
@@ -137,7 +137,7 @@ public class ArrayDeque<Item> {
     	int actual_i = (index + this.front) % this.items.length;
     	return this.items[actual_i];
     }
-    /** Returns the length of the array in use (used for testing) */
+    /** Returns the length of the array in use (used for testing). */
     private int len() {
         return this.items.length;
     }

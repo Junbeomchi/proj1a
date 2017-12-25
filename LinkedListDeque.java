@@ -87,7 +87,7 @@ public class LinkedListDeque<Item>{
 			return toRemove.item;
 		}
 	}
-	/** Prints the items in the deque from the first to last, separated by a space. */
+	/** Prints the items in the deque from the front to the rear, separated by spaces. */
 	public void printDeque() {
 		DLList p = sentinel.next;
 		while (!p.equals(sentinel)) {
