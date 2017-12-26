@@ -31,7 +31,7 @@ public class ArrayDeque<Item> {
         }
         resized[j] = this.items[this.rear]; // rear
         this.front = 0;
-        this.rear = this.items.length-1;
+        this.rear = j;
         this.items = resized;
     }
     /** Adds an item to the front of the deque. */
@@ -70,19 +70,6 @@ public class ArrayDeque<Item> {
     public int size() {
         return this.size;
     }
-    /** Condenses an array */
-    private void condense() {
-        Item[] condensed = (Item[]) new Object[this.items.length/2];
-        int j = 0;
-        for (int i = this.front; i != this.rear; i = ArrayDeque.increment(i, this.items.length)) {
-            condensed[j] = this.items[i];
-            j = ArrayDeque.increment(j, condensed.length);
-        }
-        condensed[j] = this.items[this.rear];
-        this.front = 0;
-        this.rear = j;
-        this.items = condensed;
-    }
     /** Removes and returns the item at the front of the deque. */
     public Item removeFirst() {
     	if (this.isEmpty()) {
@@ -95,7 +82,7 @@ public class ArrayDeque<Item> {
             // Check the usage ratio (r) and shrink the array by half if r < 0.25 and array length >= 16.
             double r = this.size / (double) this.items.length;
     		if (r < 0.25 && this.items.length >= 16) {
-    		    this.condense();
+    		    this.resize(this.items.length/2);
             }
     		return toRemove;
     	}
@@ -112,7 +99,7 @@ public class ArrayDeque<Item> {
     		// Check the usage ratio (r) and shrink the array by half if r < 0.25 and array length >= 16.
             double r = this.size / (double) this.items.length;
     		if (r < 0.25 && this.items.length >= 16) {
-    		    this.condense();
+    		    this.resize(this.items.length/2);
             }
     		return toRemove;
     	}
