@@ -1,4 +1,4 @@
-# proj1a
+# Deque
 My attempt at Project 1A from CS61B Spring 2017 (Prior to officially taking the class).
 The project involved implementing two separate, but identical, deques by using a circular doubly linked list data structure and a circular array list data structure.
 
